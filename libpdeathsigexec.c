@@ -14,8 +14,15 @@
  */
 #include <signal.h>
 #include <stdlib.h>
-#include <sys/prctl.h>
 #include <unistd.h>
+
+#if defined(PDEATHSIGEXEC_prctl)
+#include <sys/prctl.h>
+#elif defined(PDEATHSIGEXEC_procctl)
+#include <sys/procctl.h>
+#else
+#pragma message "unsupported platform"
+#endif
 
 int sig = SIGKILL;
 
@@ -31,7 +38,13 @@ void _init(void) {
   if (sig < 0 || sig >= NSIG)
     sig = SIGKILL;
 
+#if defined(PDEATHSIGEXEC_prctl)
   if (prctl(PR_SET_PDEATHSIG, sig) != 0) {
     _exit(111);
   }
+#elif defined(PDEATHSIGEXEC_procctl)
+  if (procctl(P_PID, 0, PROC_PDEATHSIG_CTL, &sig) != 0) {
+    _exit(111);
+  }
+#endif
 }

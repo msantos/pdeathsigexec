@@ -20,9 +20,16 @@
 #include <unistd.h>
 
 #include <signal.h>
-#include <sys/prctl.h>
 
-#define PDEATHSIGEXEC_VERSION "0.1.0"
+#if defined(PDEATHSIGEXEC_prctl)
+#include <sys/prctl.h>
+#elif defined(PDEATHSIGEXEC_procctl)
+#include <sys/procctl.h>
+#else
+#pragma message "unsupported platform"
+#endif
+
+#define PDEATHSIGEXEC_VERSION "0.2.0"
 
 extern char *__progname;
 
@@ -60,9 +67,15 @@ int main(int argc, char *argv[]) {
     exit(2);
   }
 
+#if defined(PDEATHSIGEXEC_prctl)
   if (prctl(PR_SET_PDEATHSIG, sig) != 0) {
     err(EXIT_FAILURE, "prctl");
   }
+#elif defined(PDEATHSIGEXEC_procctl)
+  if (procctl(P_PID, 0, PROC_PDEATHSIG_CTL, &sig) != 0) {
+    err(EXIT_FAILURE, "procctl");
+  }
+#endif
 
   (void)execvp(argv[0], argv);
 
