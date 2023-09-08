@@ -24,11 +24,10 @@
 #pragma message "unsupported platform"
 #endif
 
-int sig = SIGKILL;
-
 void _init(void);
 
 void _init(void) {
+  int sig = SIGKILL;
   char *env_sig;
 
   env_sig = getenv("PDEATHSIGEXEC_SIGNAL");

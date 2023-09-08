@@ -6,9 +6,9 @@ pdeathsigexec *cmd* *...*
 
 pdeathsigexec: signal process when parent exits
 
-A subprocess whose parent exits will be re-parented to init (PID 1)
-and continue to run. `pdeathsigexec` sets the process to have a signal
-sent if the parent process terminates.
+A subprocess whose parent exits can be re-parented to init (PID 1) and
+continue to run. `pdeathsigexec` sets the process to have a signal sent
+if the parent process terminates.
 
 The "signal on parent termination" behaviour applies
 to the executed process only and not descendents
