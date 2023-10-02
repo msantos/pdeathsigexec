@@ -29,7 +29,7 @@
 #pragma message "unsupported platform"
 #endif
 
-#define PDEATHSIGEXEC_VERSION "0.2.0"
+#define PDEATHSIGEXEC_VERSION "0.2.1"
 
 extern char *__progname;
 
@@ -52,6 +52,7 @@ int main(int argc, char *argv[]) {
         usage();
         exit(2);
       }
+      break;
     case 'h':
     default:
       usage();
