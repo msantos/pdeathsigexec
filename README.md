@@ -73,7 +73,5 @@ make
 
 # ENVIRONMENT VARIABLES
 
-## libpdeathsigexec
-
 PDEATHSIGEXEC_SIGNAL
 : set the termination signal (default `9` (SIGKILL))

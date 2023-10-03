@@ -29,7 +29,7 @@
 #pragma message "unsupported platform"
 #endif
 
-#define PDEATHSIGEXEC_VERSION "0.2.1"
+#define PDEATHSIGEXEC_VERSION "0.3.0"
 
 extern char *__progname;
 
@@ -43,21 +43,28 @@ static const struct option long_options[] = {
 int main(int argc, char *argv[]) {
   int ch;
   int sig = SIGKILL;
+  char *env_sig;
+
+  env_sig = getenv("PDEATHSIGEXEC_SIGNAL");
+  if (env_sig)
+    sig = atoi(env_sig);
 
   while ((ch = getopt_long(argc, argv, "+hs:", long_options, NULL)) != -1) {
     switch (ch) {
     case 's':
       sig = atoi(optarg);
-      if (sig < 0 || sig >= NSIG) {
-        usage();
-        exit(2);
-      }
       break;
     case 'h':
     default:
       usage();
       exit(2);
     }
+  }
+
+  if (sig < 0 || sig >= NSIG) {
+    (void)fprintf(stderr, "invalid signal: %d\n", sig);
+    usage();
+    exit(2);
   }
 
   argc -= optind;
