@@ -29,7 +29,7 @@ endif
 
 RM ?= rm
 
-PDEATHSIGEXEC_CFLAGS ?= -g -Wall -fwrapv -pedantic -pie -fPIE
+PDEATHSIGEXEC_CFLAGS ?= -g -Wall -Wextra -fwrapv -pedantic -pie -fPIE
 
 CFLAGS += $(PDEATHSIGEXEC_CFLAGS) -DPDEATHSIGEXEC=\"$(PDEATHSIGEXEC)\" -DPDEATHSIGEXEC_$(PDEATHSIGEXEC)
 
