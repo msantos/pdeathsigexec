@@ -39,8 +39,7 @@ LDFLAGS += $(PDEATHSIGEXEC_LDFLAGS)
 all: $(PROG) libpdeathsigexec.so
 
 $(PROG):
-	$(CC) $(CFLAGS) \
-		-o $(PROG) $(SRCS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) $(LDFLAGS)
 
 .PHONY: clean
 clean:
