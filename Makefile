@@ -47,7 +47,7 @@ clean:
 
 .PHONY: test
 test: $(PROG) libpdeathsigexec.so
-	@PATH=.:$(PATH) bats test
+	@env LD_LIBRARY_PATH=. PATH=.:$(PATH) bats test
 
 libpdeathsigexec.so:
 	$(CC) -Wall -Wextra -pedantic -D_GNU_SOURCE -nostartfiles -shared -fpic -fPIC \
