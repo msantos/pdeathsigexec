@@ -77,11 +77,11 @@ int main(int argc, char *argv[]) {
 
 #if defined(PDEATHSIGEXEC_prctl)
   if (prctl(PR_SET_PDEATHSIG, sig) != 0) {
-    err(EXIT_FAILURE, "prctl");
+    err(111, "prctl");
   }
 #elif defined(PDEATHSIGEXEC_procctl)
   if (procctl(P_PID, 0, PROC_PDEATHSIG_CTL, &sig) != 0) {
-    err(EXIT_FAILURE, "procctl");
+    err(111, "procctl");
   }
 #endif
 
