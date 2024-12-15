@@ -29,7 +29,7 @@
 #pragma message "unsupported platform"
 #endif
 
-#define PDEATHSIGEXEC_VERSION "0.3.0"
+#define PDEATHSIGEXEC_VERSION "0.3.1"
 
 extern char *__progname;
 
