@@ -33,7 +33,7 @@
 
 extern char *__progname;
 
-static void usage();
+static void usage(void);
 
 static const struct option long_options[] = {
     {"help", no_argument, NULL, 'h'},
@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
   err(errno == ENOENT ? 127 : 126, "%s", argv[0]);
 }
 
-static void usage() {
+static void usage(void) {
   (void)fprintf(stderr,
                 "%s [OPTION] <COMMAND> <...>\n"
                 "version: %s\n"
