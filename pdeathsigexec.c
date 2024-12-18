@@ -83,6 +83,9 @@ int main(int argc, char *argv[]) {
   if (procctl(P_PID, 0, PROC_PDEATHSIG_CTL, &sig) != 0) {
     err(111, "procctl");
   }
+#else
+  errno = EPERM;
+  err(111, "unsupported platform");
 #endif
 
   (void)execvp(argv[0], argv);
