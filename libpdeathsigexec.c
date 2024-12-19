@@ -45,5 +45,7 @@ void _init(void) {
   if (procctl(P_PID, 0, PROC_PDEATHSIG_CTL, &sig) != 0) {
     _exit(111);
   }
+#else
+  _exit(111);
 #endif
 }
