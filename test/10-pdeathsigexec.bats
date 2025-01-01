@@ -25,7 +25,7 @@ EOF
 }
 
 @test "libpdeathsigexec: process signalled when parent exits" {
-    run env LD_PRELOAD=libpdeathsigexec.so timeout --foreground --preserve-status 1s sh -c "sleep 2346"
+    run env LD_PRELOAD=libpdeathsigexec.so timeout --foreground --preserve-status 1s sh -c "sleep 2346 & sleep 2347"
     cat << EOF
 --- output
 $output
@@ -36,6 +36,16 @@ EOF
     [ "$status" -eq 143 ]
 
     run pgrep -fa "sleep 2346"
+    cat << EOF
+--- output
+$output
+---
+EOF
+
+    [ "$output" == "" ]
+    [ "$status" -eq 1 ]
+
+    run pgrep -fa "sleep 2347"
     cat << EOF
 --- output
 $output
