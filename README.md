@@ -61,6 +61,11 @@ $ pgrep -fa sleep
 make
 
 #### static executable using musl
+## sudo apt install musl-dev musl-tools
+
+## linux seccomp process restrictions: requires kernel headers
+export MUSL_INCLUDE=/tmp
+git clone https://github.com/sabotage-linux/kernel-headers.git $MUSL_INCLUDE/kernel-headers
 ./musl-make
 ```
 
