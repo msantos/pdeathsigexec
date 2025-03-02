@@ -6,21 +6,18 @@ pdeathsigexec *cmd* *...*
 
 pdeathsigexec: signal process when parent exits
 
-A subprocess whose parent exits can be re-parented to init (PID 1) and
-continue to run. `pdeathsigexec` sets the process to have a signal sent
-if the parent process terminates.
+Subprocesses orphaned by a parent process's exit are typically reparented
+to init (PID 1) and continue running. `pdeathsigexec` ensures a process
+receives a signal upon its parent's termination.
 
 The "signal on parent termination" behaviour applies
 to the executed process only and not descendents
 ([prctl(2)](https://man7.org/linux/man-pages/man2/prctl.2.html)):
 
-```
-The parent-death signal setting is cleared for the child of a fork(2).
-It is also (since Linux 2.4.36 / 2.6.23) cleared when  executing  a
-set-user-ID or set-group-ID binary, or a binary that has associated
-capabilities (see capabilities(7)); otherwise, this value is preserved
-across execve(2).
-```
+> The parent-death signal setting is cleared for the child of a fork(2). It
+> is also (since Linux 2.4.36 / 2.6.23) cleared when executing a set-user-ID
+> or set-group-ID binary, or a binary that has associated capabilities (see
+> capabilities(7)); otherwise, this value is preserved across execve(2).
 
 The behaviour can be set for related, dynamically linked processes in
 a supervision tree by using a `LD_PRELOAD` library (see `EXAMPLES`).
